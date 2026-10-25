@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LazyFlow AI is a privacy-first productivity workspace powered by a local open-weight AI model.">
+  <meta name="theme-color" content="#10111b">
+  <title>LazyFlow AI — Do less. Get more done.</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#" aria-label="LazyFlow AI home">
+        <span class="brand-mark">✳</span><span>lazyflow<span class="brand-ai">.ai</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-view="overview"><span>⌂</span> Overview</button>
+        <button class="nav-item" data-view="assistant"><span>✧</span> AI Assistant</button>
+        <button class="nav-item" data-view="writer"><span>✎</span> Smart Writer</button>
+        <button class="nav-item" data-view="summarizer"><span>≡</span> Summarizer</button>
+        <button class="nav-item" data-view="planner"><span>↗</span> Task Planner</button>
+        <button class="nav-item" data-view="study"><span>▤</span> Study Helper</button>
+        <button class="nav-item" data-view="tasks"><span>✓</span> My Tasks <span class="nav-count" id="taskNavCount">0</span></button>
+        <button class="nav-item" data-view="history"><span>◷</span> History</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="model-card">
+          <div class="model-card-top"><span class="status-dot" id="sidebarStatusDot"></span><span id="sidebarStatus">AI disconnected</span></div>
+          <div class="model-name" id="sidebarModel">Ollama local model</div>
+          <button class="text-button" id="openSettings">Configure model ↗</button>
+        </div>
+        <button class="nav-item" id="themeToggle"><span id="themeIcon">☼</span> Toggle appearance</button>
+        <div class="profile-row"><div class="avatar">LF</div><div><strong>My workspace</strong><small>Private by design</small></div><span class="privacy-lock">⌑</span></div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <button class="mobile-menu icon-button" id="mobileMenu" aria-label="Open navigation">☰</button>
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="currentSection">Overview</strong></div>
+        <div class="top-actions">
+          <span class="local-badge"><span class="status-dot" id="topStatusDot"></span><span id="topStatus">Local AI offline</span></span>
+          <button class="icon-button" id="headerSettings" aria-label="Settings">⚙</button>
+        </div>
+      </header>
+
+      <section class="view active" id="view-overview">
+        <div class="welcome-row">
+          <div><div class="eyebrow"><span class="sparkle">✦</span> YOUR PERSONAL PRODUCTIVITY SPACE</div><h1>Make room for <span class="gradient-text">what matters.</span></h1><p class="muted lead">Let your local AI handle the busywork. You keep the good ideas.</p></div>
+          <div class="date-chip" id="todayDate"></div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-content"><div class="hero-pill"><span class="pulse"></span> OPEN AI · YOUR DEVICE · YOUR RULES</div><h2>Work smarter.<br><span>Rest easier.</span></h2><p>Turn rough notes into polished writing, make sense of long text, and break big goals into simple next steps.</p><button class="primary-button" data-go="assistant">Talk to your AI <span>↗</span></button><div class="hero-footnote">Powered by Ollama · No hosted AI key required</div></div>
+          <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="planet">✳</div><div class="floating-card card-a"><span class="mini-icon">✎</span><div><b>Draft polished</b><small>In seconds</small></div><span class="checkmark">✓</span></div><div class="floating-card card-b"><span class="mini-icon mint">✓</span><div><b>Plan simplified</b><small>3 easy next steps</small></div></div><div class="tiny-star star-a">✦</div><div class="tiny-star star-b">✧</div></div>
+        </div>
+        <div class="section-heading"><div><h2>What can we take off your plate?</h2><p class="muted">Pick a tool and let the busywork begin.</p></div><span class="subtle-label">6 TOOLS</span></div>
+        <div class="tool-grid">
+          <button class="tool-card" data-go="writer"><span class="tool-icon purple">✎</span><span class="tool-title">Smart Writer</span><span class="tool-description">From messy thoughts to clear writing.</span><span class="tool-arrow">↗</span></button>
+          <button class="tool-card" data-go="summarizer"><span class="tool-icon blue">≡</span><span class="tool-title">Summarizer</span><span class="tool-description">Get the gist without the scroll.</span><span class="tool-arrow">↗</span></button>
+          <button class="tool-card" data-go="planner"><span class="tool-icon orange">↗</span><span class="tool-title">Task Planner</span><span class="tool-description">Turn a big goal into small steps.</span><span class="tool-arrow">↗</span></button>
+          <button class="tool-card" data-go="study"><span class="tool-icon mint">▤</span><span class="tool-title">Study Helper</span><span class="tool-description">Understand notes and revise faster.</span><span class="tool-arrow">↗</span></button>
+          <button class="tool-card" data-go="assistant"><span class="tool-icon pink">✧</span><span class="tool-title">AI Assistant</span><span class="tool-description">Think through your next move.</span><span class="tool-arrow">↗</span></button>
+          <button class="tool-card" data-go="tasks"><span class="tool-icon yellow">✓</span><span class="tool-title">My Tasks</span><span class="tool-description">Keep your next steps in one place.</span><span class="tool-arrow">↗</span></button>
+        </div>
+        <div class="bottom-grid">
+          <section class="panel"><div class="panel-heading"><div><h3>Your next steps</h3><p class="muted">A little progress goes a long way.</p></div><button class="small-link" data-go="tasks">View all →</button></div><div id="overviewTasks" class="compact-task-list"></div><form class="quick-add" id="quickAddForm"><input id="quickTaskInput" maxlength="180" placeholder="Add a small task..." aria-label="New task"><button class="primary-button small" type="submit">+ Add</button></form></section>
+          <section class="panel privacy-panel"><div class="privacy-illustration">⌑</div><div><span class="eyebrow">PRIVACY FIRST</span><h3>Your ideas stay yours.</h3><p class="muted">When connected to a local Ollama model, prompts go to the AI running on your own computer instead of a hosted AI provider.</p><button class="small-link" id="privacyDetails">How local AI works →</button></div></section>
+        </div>
+      </section>
+
+      <section class="view" id="view-assistant">
+        <div class="page-heading"><div class="eyebrow">YOUR THINKING PARTNER</div><h1>AI Assistant <span class="gradient-text">✧</span></h1><p class="muted">Ask a question, brainstorm, or get help with everyday work.</p></div>
+        <div class="chat-layout panel">
+          <div class="chat-messages" id="chatMessages"><div class="assistant-message"><div class="message-avatar">✳</div><div class="message-bubble"><b>Hey, I'm LazyFlow.</b><p>Tell me what you're working on. I'll help you find a simpler way forward.</p><div class="suggestion-row"><button class="suggestion" data-prompt="Help me plan a productive but realistic day.">Plan my day</button><button class="suggestion" data-prompt="Give me a simple framework for breaking down a difficult task.">Break down a task</button><button class="suggestion" data-prompt="Help me brainstorm creative ideas for a student project.">Brainstorm ideas</button></div></div></div></div>
+          <form class="chat-composer" id="chatForm"><textarea id="chatInput" rows="2" maxlength="8000" placeholder="Ask anything... (Enter to send, Shift + Enter for a new line)" aria-label="Message to AI"></textarea><div class="composer-bottom"><span class="muted tiny">Your message is sent to the configured local model.</span><button class="primary-button" type="submit" id="chatSend">Send <span>↑</span></button></div></form>
+        </div>
+      </section>
+
+      <section class="view" id="view-writer">
+        <div class="page-heading"><div class="eyebrow">WRITE WITH LESS FRICTION</div><h1>Smart <span class="gradient-text">Writer</span></h1><p class="muted">Give your rough notes a little polish.</p></div>
+        <div class="workbench"><section class="panel input-panel"><label class="field-label" for="writerInput">What are you trying to say?</label><textarea id="writerInput" class="large-textarea" placeholder="Paste rough notes, a draft, or the main idea you want to communicate..."></textarea><div class="field-row"><label class="field-label" for="writerStyle">Writing style</label><select id="writerStyle"><option>Clear and professional</option><option>Friendly and conversational</option><option>Short and direct</option><option>Creative and engaging</option><option>Academic</option></select></div><button class="primary-button full-button" id="writerRun">Improve my writing <span>✦</span></button></section><section class="panel output-panel"><div class="panel-heading"><div><h3>Your polished draft</h3><p class="muted">AI-generated · Review before using</p></div><button class="small-link" id="writerCopy">Copy text</button></div><div class="output-content" id="writerOutput"><div class="empty-state"><span>✎</span><b>Your better draft starts here.</b><p>Add your notes and select “Improve my writing”.</p></div></div></section></div>
+      </section>
+
+      <section class="view" id="view-summarizer">
+        <div class="page-heading"><div class="eyebrow">LESS SCROLLING, MORE KNOWING</div><h1>Text <span class="gradient-text">Summarizer</span></h1><p class="muted">Turn long content into the parts worth remembering.</p></div>
+        <section class="panel single-workbench"><label class="field-label" for="summaryInput">Text to summarize</label><textarea id="summaryInput" class="large-textarea" placeholder="Paste an article, meeting notes, study material, or any text..."></textarea><div class="action-row"><label class="field-label" for="summaryLength">Summary length</label><select id="summaryLength"><option value="brief">Brief overview</option><option value="balanced" selected>Balanced summary</option><option value="detailed">Detailed notes</option><option value="bullets">Key points only</option></select><button class="primary-button" id="summaryRun">Summarize <span>✦</span></button></div><div class="result-divider"></div><div class="panel-heading"><div><h3>Summary</h3><p class="muted">Check important details against the original text.</p></div><button class="small-link" id="summaryCopy">Copy summary</button></div><div class="output-content" id="summaryOutput"><div class="empty-state"><span>≡</span><b>Clarity, minus the clutter.</b><p>Your summary will appear here.</p></div></div></section>
+      </section>
+
+      <section class="view" id="view-planner">
+        <div class="page-heading"><div class="eyebrow">MAKE THE FIRST STEP THE EASY STEP</div><h1>Task <span class="gradient-text">Planner</span></h1><p class="muted">Tell us the goal. Get a realistic plan you can actually start.</p></div>
+        <section class="panel planner-panel"><label class="field-label" for="plannerGoal">What's the goal?</label><textarea id="plannerGoal" class="medium-textarea" placeholder="Example: Prepare a presentation for my college project by Friday..."></textarea><div class="planner-controls"><div><label class="field-label" for="plannerTime">Time available</label><select id="plannerTime"><option>30 minutes</option><option>1–2 hours</option><option>A day</option><option>A week</option><option>A month</option><option>Flexible</option></select></div><div><label class="field-label" for="plannerEnergy">Energy level</label><select id="plannerEnergy"><option>Low — keep it easy</option><option selected>Medium — steady progress</option><option>High — focused sprint</option></select></div><button class="primary-button" id="plannerRun">Make my plan <span>↗</span></button></div><div class="result-divider"></div><div class="panel-heading"><div><h3>Your action plan</h3><p class="muted">Add the steps you want to your task list.</p></div><button class="small-link" id="addPlanTasks" disabled>+ Add steps to tasks</button></div><div class="output-content" id="plannerOutput"><div class="empty-state"><span>↗</span><b>Big goals, smaller steps.</b><p>Your plan will appear here.</p></div></div></section>
+      </section>
+
+      <section class="view" id="view-study">
+        <div class="page-heading"><div class="eyebrow">LEARN AT YOUR OWN PACE</div><h1>Study <span class="gradient-text">Helper</span></h1><p class="muted">Turn study material into clear explanations and revision notes.</p></div>
+        <section class="panel single-workbench"><label class="field-label" for="studyInput">Topic or study material</label><textarea id="studyInput" class="large-textarea" placeholder="Paste your notes or enter a topic, including your current level..."></textarea><div class="action-row"><label class="field-label" for="studyMode">Help me with</label><select id="studyMode"><option value="explain">Explain simply</option><option value="notes">Make revision notes</option><option value="quiz">Create practice questions</option><option value="flashcards">Make flashcards</option></select><button class="primary-button" id="studyRun">Help me study <span>✦</span></button></div><div class="result-divider"></div><div class="panel-heading"><div><h3>Your study guide</h3><p class="muted">Use this to support your learning.</p></div><button class="small-link" id="studyCopy">Copy notes</button></div><div class="output-content" id="studyOutput"><div class="empty-state"><span>▤</span><b>Make a tricky topic feel manageable.</b><p>Your study guide will appear here.</p></div></div></section>
+      </section>
+
+      <section class="view" id="view-tasks">
+        <div class="page-heading"><div class="eyebrow">SMALL STEPS COUNT</div><h1>My <span class="gradient-text">Tasks</span></h1><p class="muted">A calm place to keep track of what matters.</p></div>
+        <section class="panel tasks-panel"><form class="task-create" id="taskForm"><input id="taskInput" maxlength="180" placeholder="What would you like to get done?" required><select id="taskPriority" aria-label="Task priority"><option value="normal">Normal priority</option><option value="high">High priority</option><option value="low">Low priority</option></select><button class="primary-button" type="submit">+ Add task</button></form><div class="task-toolbar"><div class="filter-tabs" id="taskFilters"><button class="filter-tab active" data-filter="all">All <span id="allCount">0</span></button><button class="filter-tab" data-filter="active">To do <span id="activeCount">0</span></button><button class="filter-tab" data-filter="completed">Completed <span id="completedCount">0</span></button></div><button class="small-link danger-link" id="clearCompleted">Clear completed</button></div><div class="progress-track"><div id="taskProgress"></div></div><div class="task-list" id="taskList"></div></section>
+      </section>
+
+      <section class="view" id="view-history">
+        <div class="page-heading"><div class="eyebrow">YOUR RECENT WORK</div><h1>AI <span class="gradient-text">History</span></h1><p class="muted">Revisit recent outputs saved in this browser.</p></div>
+        <section class="panel history-panel"><div class="panel-heading"><div><h3>Saved generations</h3><p class="muted">History stays in this browser's local storage.</p></div><button class="small-link danger-link" id="clearHistory">Clear history</button></div><div id="historyList" class="history-list"></div></section>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="settingsModal" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal panel"><div class="modal-heading"><div><div class="eyebrow">LOCAL AI SETTINGS</div><h2 id="settingsTitle">Connect your model</h2></div><button class="icon-button" id="closeSettings" aria-label="Close settings">×</button></div><p class="muted">LazyFlow connects to Ollama running on your own computer. No hosted API key is needed.</p><label class="field-label" for="ollamaUrl">Ollama address</label><input class="settings-input" id="ollamaUrl" value="http://localhost:11434" placeholder="http://localhost:11434"><label class="field-label" for="modelName">Model name</label><input class="settings-input" id="modelName" value="gemma3:1b" placeholder="e.g. gemma3:1b"><div class="settings-help">Install Ollama, download a model, and keep Ollama running. Example: <code>ollama run gemma3:1b</code></div><div class="connection-status" id="connectionStatus">Not checked yet.</div><div class="modal-actions"><button class="secondary-button" id="testConnection">Test connection</button><button class="primary-button" id="saveSettings">Save settings</button></div><div class="privacy-note">⌑ <span>Local mode sends prompts to the Ollama address you configure. Only use a trusted address.</span></div></div>
+  </div>
+  <div class="toast-region" id="toastRegion" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
